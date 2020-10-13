@@ -94,10 +94,13 @@ galaxy.Bullet.prototype.render = function( i ) {
 		galaxy.ctxmg.moveTo( this.x, this.y );
 		galaxy.ctxmg.lineTo( this.ex, this.ey );
 		galaxy.ctxmg.lineWidth = this.lineWidth *2 ; //this.lineWidth
-        bullet_style = new Image();
-        bullet_style.src = "/images/bullet_" + "0" + ".png"
-        pattern_style = galaxy.ctxmg.createPattern(bullet_style, "repeat");
-		galaxy.ctxmg.strokeStyle = pattern_style; //this.strokeStyle
+        bullet_image = galaxy.hero.getBullet();
+        if (bullet_image) {
+            pattern_style = galaxy.ctxmg.createPattern(galaxy.hero.getBullet(), "repeat");
+            galaxy.ctxmg.strokeStyle = pattern_style;
+        } else {
+            galaxy.ctxmg.strokeStyle = this.strokeStyle;
+        }
 		galaxy.ctxmg.stroke();
 	}
 };

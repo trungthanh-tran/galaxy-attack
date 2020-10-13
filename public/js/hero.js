@@ -36,6 +36,13 @@ galaxy.Hero = function() {
         this.heroes[i].src = "/images/ship_" + i + ".png"
     }
 
+    this.bullet_heroes = new Array();
+    for (var i = 0; i < 5; i++) {
+        this.bullet_heroes[i] = new Image();
+        this.bullet_heroes[i].src = "/images/bullet_" + i + ".png"
+    }
+
+
 };
 
 /*==============================================================================
@@ -232,3 +239,7 @@ galaxy.Hero.prototype.render = function() {
 galaxy.Hero.prototype.selectHero = function (selectedHeroIndex) {
     this.selectedHero = selectedHeroIndex;
 };
+
+galaxy.Hero.prototype.getBullet = function() {
+    return this.bullet_heroes[this.selectedHero];
+}
