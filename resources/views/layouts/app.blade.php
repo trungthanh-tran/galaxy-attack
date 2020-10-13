@@ -50,6 +50,7 @@
         </div>
     </nav>
     <input type="hidden" id="userId" name="userId" value="{{ Auth::user()->id }}">
+    <input type="hidden" id="userName" name="userName" value="{{ Auth::user()->name }}">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">

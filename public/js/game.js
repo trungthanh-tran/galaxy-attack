@@ -1152,6 +1152,7 @@ galaxy.setState = function( state ) {
 		} );
 		galaxy.buttons.push( menuButton );
 
+
 		galaxy.storage['score'] = Math.max( galaxy.storage['score'], galaxy.score );
 		galaxy.storage['level'] = Math.max( galaxy.storage['level'], galaxy.level.current );
 		galaxy.storage['rounds'] += 1;
@@ -1160,7 +1161,40 @@ galaxy.setState = function( state ) {
 		galaxy.storage['powerups'] += galaxy.powerupsCollected;
 		galaxy.storage['time'] += Math.floor( galaxy.elapsed );
 		galaxy.updateStorage();
-	}
+
+        var urlEncodedDataPairs = [];
+        urlEncodedDataPairs.push( 'name=' + encodeURIComponent( document.getElementById('userName').value ) );
+        urlEncodedDataPairs.push( 'score=' + encodeURIComponent( galaxy.score ));
+        urlEncodedDataPairs.push( 'level=' + encodeURIComponent(  galaxy.level.current ) );
+        urlEncodedDataPairs.push( 'kills=' + encodeURIComponent( galaxy.kills ) );
+        urlEncodedDataPairs.push( 'bullets=' + encodeURIComponent( galaxy.bulletsFired ) );
+        urlEncodedDataPairs.push( 'powerup=' + encodeURIComponent( galaxy.powerupsCollected ) );
+        urlEncodedDataPairs.push( 'time=' + encodeURIComponent(Math.floor( galaxy.elapsed )) );
+        urlEncodedData = urlEncodedDataPairs.join( '&' ).replace( /%20/g, '+' );
+
+        console.log(document.getElementById('userName').value );
+        var request = new XMLHttpRequest();
+
+        // Define what happens on successful data submission
+        request.addEventListener( 'load', function(event) {
+            alert( 'Send score success' );
+        } );
+
+        // Define what happens in case of error
+        request.addEventListener( 'error', function(event) {
+            alert( 'SendCored error' );
+        } );
+
+        // Set up our request
+        request.open( 'POST', '/api/save-score' );
+
+        // Add the required HTTP header for form data POST requests
+        request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
+
+        // Finally, send our data.
+        request.send( urlEncodedData );
+
+    }
 
 	// set state
 	galaxy.state = state;
