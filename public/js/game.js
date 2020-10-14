@@ -1008,9 +1008,8 @@ galaxy.setState = function( state ) {
             title: 'SHIP 1',
             action: function() {
                 $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=1", function( data ) {;
-                    console.log(data);
                     if (data.code === 200) {
-                        galaxy.storage['ship'] = 0;
+                        galaxy.storage['ship'] = 1;
                         galaxy.setState( 'menu' );
                     } else {
                         $('#pay-now').modal('show');
@@ -1031,7 +1030,7 @@ galaxy.setState = function( state ) {
             action: function() {
                 $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=2", function( data ) {;
                     if (data.code === 200) {
-                        galaxy.storage['ship'] = 1;
+                        galaxy.storage['ship'] = 2;
                         galaxy.setState( 'menu' );
                     } else {
                         $('#pay-now').modal('show');
@@ -1051,7 +1050,7 @@ galaxy.setState = function( state ) {
             action: function() {
                 $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=3", function( data ) {;
                     if (data.code === 200) {
-                        galaxy.storage['ship'] = 2;
+                        galaxy.storage['ship'] = 3;
                         galaxy.setState( 'menu' );
                     } else {
                         $('#pay-now').modal('show');
@@ -1073,7 +1072,7 @@ galaxy.setState = function( state ) {
             action: function() {
                 $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=4", function( data ) {;
                     if (data.code === 200) {
-                        galaxy.storage['ship'] = 3;
+                        galaxy.storage['ship'] = 4;
                         galaxy.setState( 'menu' );
                     } else {
                         $('#pay-now').modal('show');
@@ -1095,7 +1094,7 @@ galaxy.setState = function( state ) {
             action: function() {
                 $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=5", function( data ) {;
                     if (data.code === 200) {
-                        galaxy.storage['ship'] = 4;
+                        galaxy.storage['ship'] = 5;
                         galaxy.setState( 'menu' );
                     } else {
                         $('#pay-now').modal('show');

@@ -29,7 +29,7 @@ galaxy.Hero = function() {
 		},
 		fireFlag: 0
 	};
-    this.selectedHero = 2;
+    this.selectedHero = 6;
 	this.heroes = new Array();
     for (var i = 0; i < 5; i++) {
         this.heroes[i] = new Image();
@@ -203,11 +203,12 @@ galaxy.Hero.prototype.render = function() {
         } else {
             var fillStyle = this.fillStyle;
         }
-        if (Number.isInteger(this.selectedHero) && this.selectedHero < 5) {
+        if (Number.isInteger(this.selectedHero) && this.selectedHero > 0 && this.selectedHero < 6) {
+            var index = this.selectedHero -1;
             galaxy.ctxmg.save();
             galaxy.ctxmg.translate(this.x, this.y);
             galaxy.ctxmg.rotate(this.direction + galaxy.pi / 2);
-            galaxy.ctxmg.drawImage(this.heroes[this.selectedHero], -1 * this.radius * 3 / 2 - 5, -1 * this.radius * 2, this.radius * 4, this.radius * 4);
+            galaxy.ctxmg.drawImage(this.heroes[index], -1 * this.radius * 3 / 2 - 5, -1 * this.radius * 2, this.radius * 4, this.radius * 4);
             galaxy.ctxmg.restore();
             return;
         } else {
@@ -238,6 +239,10 @@ galaxy.Hero.prototype.render = function() {
 
 galaxy.Hero.prototype.selectHero = function (selectedHeroIndex) {
     this.selectedHero = selectedHeroIndex;
+    galaxy.storage['ship'] = selectedHeroIndex;
+    if (selectedHeroIndex > 0 && selectedHeroIndex < 6) {
+        this.life = 2;
+    }
 };
 
 galaxy.Hero.prototype.getBullet = function() {
