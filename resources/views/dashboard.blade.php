@@ -115,6 +115,29 @@
         </div>
     </div>
 
+    <div class="modal" tabindex="-1" role="dialog" id="pay-now" name="pay-now">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><p id="pay-title">Alert</p></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body container">
+
+                    <div id="display-pay" name="display-pay">
+                        You do not achieve it. <button type="button" class="btn btn-primary">Pay Now</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 
 @push("scripts")

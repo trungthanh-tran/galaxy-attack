@@ -1008,15 +1008,15 @@ galaxy.setState = function( state ) {
             title: 'SHIP 1',
             action: function() {
                 $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=1", function( data ) {;
+                    console.log(data);
                     if (data.code === 200) {
                         galaxy.storage['ship'] = 0;
                         galaxy.setState( 'menu' );
                     } else {
+                        $('#pay-now').modal('show');
                         galaxy.setState( 'menu' );
                     }
-
                 });
-
             }
         } );
         galaxy.buttons.push( ship1_button );
@@ -1029,9 +1029,15 @@ galaxy.setState = function( state ) {
             scale: 3,
             title: 'SHIP 2',
             action: function() {
-                galaxy.storage['ship'] = 1;
-                galaxy.setState( 'menu' );
-            }
+                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=2", function( data ) {;
+                    if (data.code === 200) {
+                        galaxy.storage['ship'] = 1;
+                        galaxy.setState( 'menu' );
+                    } else {
+                        $('#pay-now').modal('show');
+                        galaxy.setState( 'menu' );
+                    }
+                });            }
         } );
         galaxy.buttons.push( ship2_button );
 
@@ -1043,8 +1049,15 @@ galaxy.setState = function( state ) {
             scale: 3,
             title: 'SHIP 3',
             action: function() {
-                galaxy.storage['ship'] = 2;
-                galaxy.setState( 'menu' );
+                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=3", function( data ) {;
+                    if (data.code === 200) {
+                        galaxy.storage['ship'] = 2;
+                        galaxy.setState( 'menu' );
+                    } else {
+                        $('#pay-now').modal('show');
+                        galaxy.setState( 'menu' );
+                    }
+                });
             }
         } );
         galaxy.buttons.push( ship3_button );
@@ -1058,8 +1071,15 @@ galaxy.setState = function( state ) {
             scale: 3,
             title: 'SHIP 4',
             action: function() {
-                galaxy.storage['ship'] = 3;
-                galaxy.setState( 'menu' );
+                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=4", function( data ) {;
+                    if (data.code === 200) {
+                        galaxy.storage['ship'] = 3;
+                        galaxy.setState( 'menu' );
+                    } else {
+                        $('#pay-now').modal('show');
+                        galaxy.setState( 'menu' );
+                    }
+                });
             }
         } );
         galaxy.buttons.push( ship4_button );
@@ -1073,8 +1093,15 @@ galaxy.setState = function( state ) {
             scale: 3,
             title: 'SHIP 5',
             action: function() {
-                galaxy.storage['ship'] = 4;
-                galaxy.setState( 'menu' );
+                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=5", function( data ) {;
+                    if (data.code === 200) {
+                        galaxy.storage['ship'] = 4;
+                        galaxy.setState( 'menu' );
+                    } else {
+                        $('#pay-now').modal('show');
+                        galaxy.setState( 'menu' );
+                    }
+                });
             }
         } );
         galaxy.buttons.push( ship5_button );
@@ -1180,16 +1207,6 @@ galaxy.setState = function( state ) {
         urlEncodedDataPairs.push( 'time=' + encodeURIComponent(Math.floor( galaxy.elapsed )) );
         urlEncodedData = urlEncodedDataPairs.join( '&' ).replace( /%20/g, '+' );
         var request = new XMLHttpRequest();
-
-        // Define what happens on successful data submission
-        request.addEventListener( 'load', function(event) {
-            alert( 'Send score success' );
-        } );
-
-        // Define what happens in case of error
-        request.addEventListener( 'error', function(event) {
-            alert( 'SendCored error' );
-        } );
         // Set up our request
         request.open( 'POST', '/api/save-score' );
         // Add the required HTTP header for form data POST requests

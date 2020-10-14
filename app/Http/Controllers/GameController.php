@@ -96,10 +96,10 @@ class GameController extends Controller
      * @return \Illuminate\Http\JsonResponse
      */
     public function checkItem(Request $request) {
-        $uid = $request->get('id');
+        $uid = $request->get('user_id');
         $item_id = $request->get('item_id');
 
-        $item = UserItem::where([['id', '=', $uid], ['item_id', '=', $item_id]])->first();
+        $item = UserItem::where([['user_id', '=', $uid], ['item_id', '=', $item_id]])->first();
         if (!$item) {
             return response()->json(["code" => 500, "message" => "Not set"], 200 );
         } else {
