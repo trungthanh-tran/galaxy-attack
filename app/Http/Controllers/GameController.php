@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\GameScore;
+use App\Http\Resources\HighScore;
+use App\Http\Resources\HighScoreCollection;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -61,5 +63,21 @@ class GameController extends Controller
         $game_score->time = $time;
         $game_score->save();
         return response()-> json ("OK", 200);
+    }
+
+    public function getHighscore(Request $request) {
+        $criteria = $request->get('criteria');
+        if (!$criteria) {
+            return response()->json(["message" => "Invalid criteria"], 441 );
+        }
+        $limit = $request->get('limit');
+        $filteredVal = filter_var($limit,
+            FILTER_VALIDATE_INT,
+            array('options' => array('min_range' => 0)));
+        if (false === $filteredVal) {
+            return response()->json(["message" => "Invalid time"], 441 );
+        }
+        $highscore = GameScore::orderBy($criteria, 'desc')->take($limit)->get();
+        return response()->json($highscore, 200);
     }
 }

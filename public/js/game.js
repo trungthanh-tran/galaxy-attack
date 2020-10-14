@@ -953,9 +953,9 @@ galaxy.setState = function( state ) {
 			lockedWidth: 299,
 			lockedHeight: 49,
 			scale: 3,
-			title: 'STATS',
+			title: 'HIGHSCORE',
 			action: function() {
-				galaxy.setState( 'stats' );
+                $('#highscore').modal('show');
 			}
 		} );
 		galaxy.buttons.push( statsButton );
@@ -1171,8 +1171,6 @@ galaxy.setState = function( state ) {
         urlEncodedDataPairs.push( 'powerup=' + encodeURIComponent( galaxy.powerupsCollected ) );
         urlEncodedDataPairs.push( 'time=' + encodeURIComponent(Math.floor( galaxy.elapsed )) );
         urlEncodedData = urlEncodedDataPairs.join( '&' ).replace( /%20/g, '+' );
-
-        console.log(document.getElementById('userName').value );
         var request = new XMLHttpRequest();
 
         // Define what happens on successful data submission
@@ -1184,16 +1182,12 @@ galaxy.setState = function( state ) {
         request.addEventListener( 'error', function(event) {
             alert( 'SendCored error' );
         } );
-
         // Set up our request
         request.open( 'POST', '/api/save-score' );
-
         // Add the required HTTP header for form data POST requests
         request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded' );
-
         // Finally, send our data.
         request.send( urlEncodedData );
-
     }
 
 	// set state
