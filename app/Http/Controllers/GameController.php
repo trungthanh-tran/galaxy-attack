@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\GameScore;
 use App\Http\Resources\HighScore;
 use App\Http\Resources\HighScoreCollection;
+use App\UserItem;
 use Illuminate\Http\Request;
 
 class GameController extends Controller
@@ -65,6 +66,13 @@ class GameController extends Controller
         return response()-> json ("OK", 200);
     }
 
+    /**
+     * Get highscore item
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     *
+     */
     public function getHighscore(Request $request) {
         $criteria = $request->get('criteria');
         if (!$criteria) {
@@ -80,4 +88,23 @@ class GameController extends Controller
         $highscore = GameScore::orderBy($criteria, 'desc')->take($limit)->get();
         return response()->json($highscore, 200);
     }
+
+    /**
+     * Check if user has an item
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function checkItem(Request $request) {
+        $uid = $request->get('id');
+        $item_id = $request->get('item_id');
+
+        $item = UserItem::where([['id', '=', $uid], ['item_id', '=', $item_id]])->first();
+        if (!$item) {
+            return response()->json(["code" => 500, "message" => "Not set"], 200 );
+        } else {
+            return response()->json(["code" => 200, "message" => "Set"], 200 );
+        }
+    }
+
 }

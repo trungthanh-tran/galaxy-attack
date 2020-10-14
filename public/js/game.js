@@ -1007,8 +1007,16 @@ galaxy.setState = function( state ) {
             scale: 3,
             title: 'SHIP 1',
             action: function() {
-                galaxy.storage['ship'] = 0;
-                galaxy.setState( 'menu' );
+                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=1", function( data ) {;
+                    if (data.code === 200) {
+                        galaxy.storage['ship'] = 0;
+                        galaxy.setState( 'menu' );
+                    } else {
+                        galaxy.setState( 'menu' );
+                    }
+
+                });
+
             }
         } );
         galaxy.buttons.push( ship1_button );
