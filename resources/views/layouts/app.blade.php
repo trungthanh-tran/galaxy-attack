@@ -30,7 +30,7 @@
                                     @auth
                                         <a class="nav-item nav-link border border-white @if(Request::path() === '/') active @endif" href="{{ url('/') }}">Dashboard</a>
                                         <a class="nav-item">
-                                            <form action="/logout" method="POST">
+                                            <form action="/logout"  onclick= "galaxy.clearStorage()" method="POST">
                                                 @csrf
                                                 <input type="submit" value="Logout" class="btn btn-outline-danger">
                                             </form>

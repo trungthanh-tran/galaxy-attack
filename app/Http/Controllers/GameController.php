@@ -7,6 +7,7 @@ use App\Http\Resources\HighScore;
 use App\Http\Resources\HighScoreCollection;
 use App\UserItem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GameController extends Controller
 {
@@ -105,6 +106,23 @@ class GameController extends Controller
         } else {
             return response()->json(["code" => 200, "message" => "Set"], 200 );
         }
+    }
+
+    /**
+     * Get list of items by type
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getItems(Request $request) {
+        $uid = $request->get('user_id');
+        $type = $request->get('type');
+        if (is_null($uid)) return response()->json(["code"=>500, "message" =>"uid is invalid"], 200);
+        if (is_null($type)) return response()->json(["code"=>500, "message" =>"types is invalid"], 200);
+        $ships = DB::table('useritem')->select (["useritem.item_id as id"]) ->
+            join ("items", "items.id", "=", "useritem.item_id")
+            -> where([["useritem.user_id", "=", $uid],["items.item_note", "=", $type]])->get();
+        return response()->json(["code"=>200, "message" =>"OK", "items" => $ships], 200);
     }
 
 }

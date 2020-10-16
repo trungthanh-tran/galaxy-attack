@@ -17,6 +17,7 @@ class CreateItemsTables extends Migration
             $table->bigIncrements('id');
             $table->string('item_name');
             $table->string('item_note');
+            $table->index('item_note');
             $table->timestamps();
         });
     }

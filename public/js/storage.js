@@ -13,7 +13,7 @@ Storage.prototype.removeObject = function( key ) {
 }
 
 galaxy.setupStorage = function() {
-	galaxy.storage = localStorage.getObject( 'radiusraid' ) || {
+	galaxy.storage = localStorage.getObject( 'galaxyfight' ) || {
 		'mute': 0,
 		'autofire': 0,
 		'score': 0,
@@ -27,11 +27,11 @@ galaxy.setupStorage = function() {
 };
 
 galaxy.updateStorage = function() {
-	localStorage.setObject( 'radiusraid', galaxy.storage );
+	localStorage.setObject( 'galaxyfight', galaxy.storage );
 };
 
 galaxy.clearStorage = function() {
-	localStorage.removeObject( 'radiusraid' );
+	localStorage.removeObject( 'galaxyfight' );
 	galaxy.setupStorage();
 };
 

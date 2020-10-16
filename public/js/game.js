@@ -18,6 +18,7 @@ galaxy.init = function() {
 	galaxy.ctxbg4 = galaxy.cbg4.getContext( '2d' );
 	galaxy.ctxmg = galaxy.cmg.getContext( '2d' );
 	galaxy.ctxfg = galaxy.cfg.getContext( '2d' );
+
 	//galaxy.cw = galaxy.cmg.width = galaxy.cfg.width = 800;
     galaxy.top = galaxy.wrap.offsetTop;
     screen_width = screen.width;
@@ -106,6 +107,7 @@ galaxy.init = function() {
 	galaxy.levelPops = [];
 	galaxy.powerupTimers = [];
 
+
 	galaxy.resizecb();
 	galaxy.bindEvents();
 	galaxy.setupStates();
@@ -114,6 +116,11 @@ galaxy.init = function() {
 	galaxy.renderBackground3();
 	galaxy.renderBackground4();
 	galaxy.renderForeground();
+    // Add behind elements.
+    //galaxy.ctxmg.globalCompositeOperation = 'destination-out'
+// Now draw!
+    //galaxy.ctxbg1.fillStyle = "blue";
+    //galaxy.ctxbg1.fillRect(0, 0, galaxy.cbg1.width, galaxy.cbg1.height);
 	galaxy.setState( 'menu' );
 	galaxy.loop();
 };
@@ -191,11 +198,14 @@ galaxy.reset = function() {
 Render Backgrounds
 ==============================================================================*/
 galaxy.renderBackground1 = function() {
-	var gradient = galaxy.ctxbg1.createRadialGradient( galaxy.cbg1.width / 2, galaxy.cbg1.height / 2, 0, galaxy.cbg1.width / 2, galaxy.cbg1.height / 2, galaxy.cbg1.height );
+
+	/*var gradient = galaxy.ctxbg1.createRadialGradient( galaxy.cbg1.width / 2, galaxy.cbg1.height / 2, 0, galaxy.cbg1.width / 2, galaxy.cbg1.height / 2, galaxy.cbg1.height );
 	gradient.addColorStop( 0, 'hsla(0, 0%, 100%, 0.1)' );
 	gradient.addColorStop( 0.65, 'hsla(0, 0%, 100%, 0)' );
 	galaxy.ctxbg1.fillStyle = gradient;
 	galaxy.ctxbg1.fillRect( 0, 0, galaxy.cbg1.width, galaxy.cbg1.height );
+
+
 
 	var i = 2000;
 	while( i-- ) {
@@ -205,7 +215,8 @@ galaxy.renderBackground1 = function() {
 	var i = 800;
 	while( i-- ) {
 		galaxy.util.fillCircle( galaxy.ctxbg1, galaxy.util.rand( 0, galaxy.cbg1.width ), galaxy.util.rand( 0, galaxy.cbg1.height ), galaxy.util.rand( 0.1, 0.8 ), 'hsla(0, 0%, 100%, ' + galaxy.util.rand( 0.05, 0.5 ) + ')' );
-	}
+	}*/
+    galaxy.cbg1.style.background = "url('/images/fg.png')";
 }
 
 galaxy.renderBackground2 = function() {
@@ -259,6 +270,7 @@ galaxy.renderForeground = function() {
 	galaxy.ctxfg.lineTo( galaxy.cw, 0 );
 	galaxy.ctxfg.lineTo( 0, galaxy.ch );
 	galaxy.ctxfg.closePath();
+
 	galaxy.ctxfg.fillStyle = gradient2;
 	galaxy.ctxfg.fill();
 }
@@ -938,11 +950,13 @@ galaxy.setState = function( state ) {
             lockedWidth: 299,
             lockedHeight: 49,
             scale: 3,
-            title: 'CUSTOMIZE SPACESHIP',
+            title: 'CUSTOMIZE',
             action: function() {
-                galaxy.reset();
-                galaxy.audio.play( 'levelup' );
-                galaxy.setState( 'credits' );
+                $('#pay-now').modal('show');
+                renderItemList('ship')
+                //galaxy.reset();
+                //galaxy.audio.play( 'levelup' );
+                //galaxy.setState( 'credits' );
             }
         } );
         galaxy.buttons.push( selectShipButton );
@@ -1233,7 +1247,7 @@ galaxy.setupStates = function() {
 			ctx: galaxy.ctxmg,
 			x: galaxy.cw / 2,
 			y: galaxy.ch / 2 - 100,
-			text: 'GALAXY ATTACK',
+			text: 'GALAXY FIGHT',
 			hspacing: 2,
 			vspacing: 1,
 			halign: 'center',

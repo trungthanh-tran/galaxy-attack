@@ -20,7 +20,6 @@ galaxy.Button = function( opt ) {
 	} );
 	this.width = this.lockedWidth;
 	this.height = this.lockedHeight;
-
 	this.sx = this.x - this.width / 2;
 	this.sy = this.y - this.height / 2;
 	this.cx = this.x;
@@ -62,14 +61,14 @@ Render
 ==============================================================================*/
 galaxy.Button.prototype.render = function( i ) {
 	if( this.hovering ) {
-		galaxy.ctxmg.fillStyle = 'hsla(0, 0%, 10%, 1)';
+		galaxy.ctxmg.fillStyle = 'hsla(0, 0%, 10%, 0.7)';
 		galaxy.ctxmg.fillRect( Math.floor( this.sx ), Math.floor( this.sy ), this.width, this.height );
 		galaxy.ctxmg.strokeStyle = 'hsla(0, 0%, 0%, 1)';
 		galaxy.ctxmg.strokeRect( Math.floor( this.sx ) + 0.5, Math.floor( this.sy ) + 0.5, this.width - 1, this.height - 1, 1 );
 		galaxy.ctxmg.strokeStyle = 'hsla(0, 0%, 100%, 0.2)';
 		galaxy.ctxmg.strokeRect( Math.floor( this.sx ) + 1.5, Math.floor( this.sy ) + 1.5, this.width - 3, this.height - 3, 1 );
 	} else {
-		galaxy.ctxmg.fillStyle = 'hsla(0, 0%, 0%, 1)';
+		galaxy.ctxmg.fillStyle = 'hsla(0, 0%, 0%, 0.1)';
 		galaxy.ctxmg.fillRect( Math.floor( this.sx ), Math.floor( this.sy ), this.width, this.height );
 		galaxy.ctxmg.strokeStyle = 'hsla(0, 0%, 0%, 1)';
 		galaxy.ctxmg.strokeRect( Math.floor( this.sx ) + 0.5, Math.floor( this.sy ) + 0.5, this.width - 1, this.height - 1, 1 );

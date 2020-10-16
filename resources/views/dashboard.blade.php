@@ -9,6 +9,10 @@
         function renderData(data) {
 
         }
+
+        function closePaymentModal() {
+            $("#pay-now").modal("hide");
+        }
         function getHighcoreTable(response) {
             var html = "<table class=\"table\"><thead><tr><th>User</th><th>Score</th><th>Time</th><th>Archived at</th></tr></thead>";
             html += "<tbody>";
@@ -26,23 +30,50 @@
             html += "</tbody></table>";
             return html;
         }
+
+        function renderShipsTable(data) {
+            var html = "<table class=\"table\"><thead><tr><th>Ship</th><th>Power Up</th><th>Action</th></tr></thead>";
+            html += "<tbody>";
+            for (i = 0; i < 5; i++) {
+                html += "<tr>";
+                html += "<td><img src='/images/ship_" + i + ".png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>+1 Extra life</li><li>+" + i + "% extra damage</li></ul></td>";
+                if (data.includes(i + 1)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"galaxy.hero.selectHero(";
+                    html+= "" + (i + 1) + "); closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'>Pay $1" + i + "0 to get</button></td>";
+                }
+                html += "</tr>";
+            }
+
+            if (data.length === 0) {
+                html += "<tr>";
+                html += "<td>Get all ships</td>";
+                html += "<td>Relax</td>";
+                html += "<td><button type='button' class='btn btn-info'>Pay $500 to get</button></td>";
+                html += "</tr>";
+            }
+
+            // Default ship
+            html += "<tr>";
+            html += "<td>Reset selected Ship</td>";
+            html += "<td>No PowerUP</td>";
+            html += "<td><button type='button' class='btn btn-primary' onclick=\"galaxy.hero.selectHero(6);closePaymentModal();\">Use Now</button></td>";
+            html += "</tr>";
+
+
+            html += "</ul>";
+            html += "</tbody></table>";
+            return html;
+        }
         function renderHighscore(criteria) {
             var request = new XMLHttpRequest();
-
-            // Define what happens on successful data submission
-            request.addEventListener('load', function (event) {
-                alert('Send score success');
-            });
-
-
             // Define what happens in case of error
             request.addEventListener('error', function (event) {
                 alert('SendCored error');
             });
             // Set up our request
-
-            // Add the required HTTP header for form data POST requests
-            // Finally, send our data.
 
             switch (criteria) {
                 case 'score':
@@ -74,6 +105,40 @@
                     alert("Invalid parame");
             }
         }
+
+        function renderItemList(criteria) {
+            var request = new XMLHttpRequest();
+
+            // Define what happens in case of error
+            request.addEventListener('error', function (event) {
+                alert('Get item LIST FAILURE');
+            });
+            // Set up our request
+
+            // Add the required HTTP header for form data POST requests
+            // Finally, send our data.
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/api/get-items', true);
+
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function() { // Call a function when the state changes.
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    items = JSON.parse(this.responseText);
+                    flen = items.items.length;
+                    var availableShips = [];
+                    for (var i = 0; i < flen; i++) {
+                        availableShips.push(items.items[i].id);
+                    }
+                    html = renderShipsTable(availableShips);
+                    document.getElementById("display-item").innerHTML = html;
+                }
+            }
+            data_send = "type=" + criteria + "&user_id=" + document.getElementById("userId").value;
+            xhr.send(data_send);
+        }
+
 
     </script>
 
@@ -119,16 +184,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title"><p id="pay-title">Alert</p></h5>
+                    <h5 class="modal-title"><p id="pay-title">Shop</p></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
-                <div class="modal-body container">
-
-                    <div id="display-pay" name="display-pay">
-                        You do not achieve it. <button type="button" class="btn btn-primary">Pay Now</button>
+                <div class="modal-body">
+                    <button type="button" class="btn btn-primary" onclick="renderItemList('ship')">Ships</button>
+                    <button type="button" class="btn btn-secondary" onclick="renderItemList('bg')">Background</button>
+                    <div id="display-item" name="display-item">
                     </div>
                 </div>
                 <div class="modal-footer">

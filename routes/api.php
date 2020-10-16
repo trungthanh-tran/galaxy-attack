@@ -20,3 +20,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('save-score', 'GameController@saveScore');
 Route::get('get-highscore', 'GameController@getHighscore');
 Route::get('check-item', 'GameController@checkItem');
+Route::post('get-items', 'GameController@getItems');
