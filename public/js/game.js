@@ -973,6 +973,36 @@ galaxy.setState = function( state ) {
 			}
 		} );
 		galaxy.buttons.push( statsButton );
+
+        var aboutButton = new galaxy.Button( {
+            x: galaxy.cw / 2 + 1,
+            y: statsButton.ey + 25,
+            lockedWidth: 299,
+            lockedHeight: 49,
+            scale: 3,
+            title: 'ABOUT US',
+            action: function() {
+                $('#about-us').modal('show');
+            }
+        } );
+        galaxy.buttons.push( aboutButton );
+
+        galaxy.ctxmg.beginPath();
+        var bottomInfo = galaxy.text( {
+            ctx: galaxy.ctxmg,
+            x: galaxy.cw / 2,
+            y: galaxy.ch - 172,
+            text: 'SELL EVERYTHING LLC',
+            hspacing: 1,
+            vspacing: 1,
+            halign: 'center',
+            valign: 'bottom',
+            scale: 1,
+            snap: 1,
+            render: 1
+        } );
+        galaxy.ctxmg.fillStyle = '#666';
+        galaxy.ctxmg.fill();
 	}
 
 	if( state == 'stats' ) {
@@ -1013,115 +1043,11 @@ galaxy.setState = function( state ) {
 	if( state == 'credits' ) {
 		galaxy.mouse.down = 0;
 
-        var ship1_button = new galaxy.Button( {
-            x: galaxy.cw / 2 + 1,
-            y: 126,
-            lockedWidth: 299,
-            lockedHeight: 49,
-            scale: 3,
-            title: 'SHIP 1',
-            action: function() {
-                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=1", function( data ) {;
-                    if (data.code === 200) {
-                        galaxy.storage['ship'] = 1;
-                        galaxy.setState( 'menu' );
-                    } else {
-                        $('#pay-now').modal('show');
-                        galaxy.setState( 'menu' );
-                    }
-                });
-            }
-        } );
-        galaxy.buttons.push( ship1_button );
 
-        var ship2_button = new galaxy.Button( {
-            x: galaxy.cw / 2 + 1,
-            y: ship1_button.ey + 25,
-            lockedWidth: 299,
-            lockedHeight: 49,
-            scale: 3,
-            title: 'SHIP 2',
-            action: function() {
-                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=2", function( data ) {;
-                    if (data.code === 200) {
-                        galaxy.storage['ship'] = 2;
-                        galaxy.setState( 'menu' );
-                    } else {
-                        $('#pay-now').modal('show');
-                        galaxy.setState( 'menu' );
-                    }
-                });            }
-        } );
-        galaxy.buttons.push( ship2_button );
-
-        var ship3_button = new galaxy.Button( {
-            x: galaxy.cw / 2 + 1,
-            y: ship2_button.ey + 25,
-            lockedWidth: 299,
-            lockedHeight: 49,
-            scale: 3,
-            title: 'SHIP 3',
-            action: function() {
-                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=3", function( data ) {;
-                    if (data.code === 200) {
-                        galaxy.storage['ship'] = 3;
-                        galaxy.setState( 'menu' );
-                    } else {
-                        $('#pay-now').modal('show');
-                        galaxy.setState( 'menu' );
-                    }
-                });
-            }
-        } );
-        galaxy.buttons.push( ship3_button );
-
-
-        var ship4_button = new galaxy.Button( {
-            x: galaxy.cw / 2 + 1,
-            y: ship3_button.ey + 25,
-            lockedWidth: 299,
-            lockedHeight: 49,
-            scale: 3,
-            title: 'SHIP 4',
-            action: function() {
-                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=4", function( data ) {;
-                    if (data.code === 200) {
-                        galaxy.storage['ship'] = 4;
-                        galaxy.setState( 'menu' );
-                    } else {
-                        $('#pay-now').modal('show');
-                        galaxy.setState( 'menu' );
-                    }
-                });
-            }
-        } );
-        galaxy.buttons.push( ship4_button );
-
-
-        var ship5_button = new galaxy.Button( {
-            x: galaxy.cw / 2 + 1,
-            y: ship4_button.ey + 25,
-            lockedWidth: 299,
-            lockedHeight: 49,
-            scale: 3,
-            title: 'SHIP 5',
-            action: function() {
-                $.get( "api/check-item?user_id=" + document.getElementById("userId").value + "&item_id=5", function( data ) {;
-                    if (data.code === 200) {
-                        galaxy.storage['ship'] = 5;
-                        galaxy.setState( 'menu' );
-                    } else {
-                        $('#pay-now').modal('show');
-                        galaxy.setState( 'menu' );
-                    }
-                });
-            }
-        } );
-        galaxy.buttons.push( ship5_button );
 
         var menuButton = new galaxy.Button( {
             x: galaxy.cw / 2 + 1,
-            y: ship5_button.ey + 25,
+            y: 25,
             lockedWidth: 299,
             lockedHeight: 49,
             scale: 3,

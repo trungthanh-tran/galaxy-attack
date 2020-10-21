@@ -12,6 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         $users = \App\User::all();
+        $userId = Auth()::id;
         return view('dashboard', compact('users'));
     }
 

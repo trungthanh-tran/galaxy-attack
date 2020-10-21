@@ -203,6 +203,37 @@
         </div>
     </div>
 
+    <div class="modal" tabindex="-1" role="dialog" id="about-us" name="about-us">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><p id="pay-title">About US</p></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <ul>
+                        <li>
+                        Copyright 2020 © Glaxy Fight | SELL EVERYTHING LLC
+                        </li>
+                        <li>
+                            16192 Coastal Highway Lewes, DE 19958 USA
+                        </li>
+                        <li>
+                            (800)-832-9539
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 
 @push("scripts")

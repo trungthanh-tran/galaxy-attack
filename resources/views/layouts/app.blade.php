@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'Galaxy Fight - Shoot for entertainment') }}</title>
         <script src="{{ mix('js/app.js') }}" defer></script>
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet">
@@ -49,6 +49,7 @@
             </div>
         </div>
     </nav>
+
     @auth
         <input type="hidden" id="userId" name="userId" value="{{ Auth::user()->id }}">
         <input type="hidden" id="userName" name="userName" value="{{ Auth::user()->name }}">
