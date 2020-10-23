@@ -21,6 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', 'DashboardController@index')->name('dashboard');
 
     Route::post('/logout', 'LoginController@logout');
+    Route::get('/logout', 'LoginController@logout');
     Route::post('/user', 'DashboardController@create');
     Route::get('/pay', 'PayController@index');
 });

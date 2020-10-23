@@ -390,7 +390,13 @@
 @endsection
 
 @push("scripts")
-    <script>var galaxy = {};</script>
+    <script>
+        if( window.innerWidth <= 800  || window.innerHeight <= 600 ){
+            // true for mobile device
+            alert("This version does not support mobile version. Please switch to desktop to play");
+            window.location.href = "/logout";
+        };
+        var galaxy = {};</script>
     <script src="{{ asset('js/jsfxr.js') }}"></script>
     <script src="{{ asset('js/util.js') }}"></script>
     <script src="{{ asset('js/storage.js') }}"></script>
