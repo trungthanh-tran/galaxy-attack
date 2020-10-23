@@ -35,19 +35,61 @@
             var html = "<table class=\"table\"><thead><tr><th>Item</th><th>Power Up</th><th>Action</th></tr></thead>";
             html += "<tbody>";
             if (criteria == "ship") {
-            for (i = 0; i < 5; i++) {
+                // Ship 1
                 html += "<tr>";
-                html += "<td><img src='/images/ship_"+ i +".png' width='30' class='zoom'/></td>";
-                html += "<td> <ul><li>+1 Extra life</li><li>+" + i + "% extra damage</li></ul></td>";
-                if (data.includes(i + 1)) {
-                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship',";
-                    html+= "" + (i + 1) + "); closePaymentModal();\">Use Now</button></td>";
+                html += "<td><img src='/images/ship_0.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>+1 Extra life</li><li>+" + 5 + "% extra damage</li></ul></td>";
+                if (data.includes(0)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 1);";
+                    html+= "closePaymentModal();\">Use Now</button></td>";
                 } else {
-                    html += "<td><button type='button' class='btn btn-info'>Pay $1" + i + "0 to get</button></td>";
+                    html += "<td><button type='button' class='btn btn-info'>Pay $50 to get</button></td>";
                 }
                 html += "</tr>";
-            }
-
+                // Ship 2
+                html += "<tr>";
+                html += "<td><img src='/images/ship_1.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>+1 Extra life</li><li>+" + 10 + "% extra damage</li></ul></td>";
+                if (data.includes(1)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 2);";
+                    html+= "closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'>Pay $100 to get</button></td>";
+                }
+                html += "</tr>";
+                // Ship 3
+                html += "<tr>";
+                html += "<td><img src='/images/ship_2.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>+1 Extra life</li><li>+" + 15 + "% extra damage</li></ul></td>";
+                if (data.includes(2)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 3);";
+                    html+= "closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'>Pay $200 to get</button></td>";
+                }
+                html += "</tr>";
+                // Ship 4
+                html += "<tr>";
+                html += "<td><img src='/images/ship_3.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>+1 Extra life</li><li>+" + 20 + "% extra damage</li></ul></td>";
+                if (data.includes(3)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 4);";
+                    html+= "closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'>Pay $300 to get</button></td>";
+                }
+                html += "</tr>";
+                // Ship 5
+                html += "<tr>";
+                html += "<td><img src='/images/ship_4.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>+1 Extra life</li><li>+" + 30 + "% extra damage</li></ul></td>";
+                if (data.includes(4)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 5);";
+                    html+= "closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'>Pay $400 to get</button></td>";
+                }
+                html += "</tr>";
             if (data.length === 0) {
                 html += "<tr>";
                 html += "<td>Get all ships</td>";
