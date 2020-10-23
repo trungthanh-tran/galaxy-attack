@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/logout', 'LoginController@logout');
     Route::post('/user', 'DashboardController@create');
+    Route::get('/pay', 'PayController@index');
 });
 
 Route::get("/privacy", function (){

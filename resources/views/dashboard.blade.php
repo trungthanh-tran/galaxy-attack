@@ -31,6 +31,10 @@
             return html;
         }
 
+        function pay(name, price, url) {
+            window.location.replace("/pay?name=" + encodeURI(name) + "&price=" + encodeURI(price) + "&url=" + encodeURI(url));
+        }
+
         function renderShipsTable(criteria, data) {
             var html = "<table class=\"table\"><thead><tr><th>Item</th><th>Power Up</th><th>Action</th></tr></thead>";
             html += "<tbody>";
@@ -39,62 +43,62 @@
                 html += "<tr>";
                 html += "<td><img src='/images/ship_0.png' width='30' class='zoom'/></td>";
                 html += "<td> <ul><li>+1 Extra life</li><li>+" + 5 + "% extra damage</li></ul></td>";
-                if (data.includes(0)) {
+                if (data.includes(1)) {
                     html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 1);";
                     html+= "closePaymentModal();\">Use Now</button></td>";
                 } else {
-                    html += "<td><button type='button' class='btn btn-info'>Pay $50 to get</button></td>";
+                    html += "<td><button type='button' class='btn btn-info' onclick=\"pay('Ship 1', '$50', '/images/ship_0.png'); \">Pay $50 to get</button></td>";
                 }
                 html += "</tr>";
                 // Ship 2
                 html += "<tr>";
                 html += "<td><img src='/images/ship_1.png' width='30' class='zoom'/></td>";
                 html += "<td> <ul><li>+1 Extra life</li><li>+" + 10 + "% extra damage</li></ul></td>";
-                if (data.includes(1)) {
+                if (data.includes(2)) {
                     html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 2);";
                     html+= "closePaymentModal();\">Use Now</button></td>";
                 } else {
-                    html += "<td><button type='button' class='btn btn-info'>Pay $100 to get</button></td>";
+                    html += "<td><button type='button' class='btn btn-info' onclick=\"pay('Ship 2', '$100', '/images/ship_1.png'); \">Pay $100 to get</button></td>";
                 }
                 html += "</tr>";
                 // Ship 3
                 html += "<tr>";
                 html += "<td><img src='/images/ship_2.png' width='30' class='zoom'/></td>";
                 html += "<td> <ul><li>+1 Extra life</li><li>+" + 15 + "% extra damage</li></ul></td>";
-                if (data.includes(2)) {
+                if (data.includes(3)) {
                     html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 3);";
                     html+= "closePaymentModal();\">Use Now</button></td>";
                 } else {
-                    html += "<td><button type='button' class='btn btn-info'>Pay $200 to get</button></td>";
+                    html += "<td><button type='button' class='btn btn-info' onclick=\"pay('Ship 3', '$200', '/images/ship_2.png'); \">Pay $200 to get</button></td>";
                 }
                 html += "</tr>";
                 // Ship 4
                 html += "<tr>";
                 html += "<td><img src='/images/ship_3.png' width='30' class='zoom'/></td>";
                 html += "<td> <ul><li>+1 Extra life</li><li>+" + 20 + "% extra damage</li></ul></td>";
-                if (data.includes(3)) {
+                if (data.includes(4)) {
                     html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 4);";
                     html+= "closePaymentModal();\">Use Now</button></td>";
                 } else {
-                    html += "<td><button type='button' class='btn btn-info'>Pay $300 to get</button></td>";
+                    html += "<td><button type='button' class='btn btn-info' onclick=\"pay('Ship 4', '$300', '/images/ship_4.png'); \">Pay $300 to get</button></td>";
                 }
                 html += "</tr>";
                 // Ship 5
                 html += "<tr>";
                 html += "<td><img src='/images/ship_4.png' width='30' class='zoom'/></td>";
                 html += "<td> <ul><li>+1 Extra life</li><li>+" + 30 + "% extra damage</li></ul></td>";
-                if (data.includes(4)) {
+                if (data.includes(5)) {
                     html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 5);";
                     html+= "closePaymentModal();\">Use Now</button></td>";
                 } else {
-                    html += "<td><button type='button' class='btn btn-info'>Pay $400 to get</button></td>";
+                    html += "<td><button type='button' class='btn btn-info' onclick=\"pay('Ship 5', '$300', '/images/ship_5.png'); \">Pay $400 to get</button></td>";
                 }
                 html += "</tr>";
             if (data.length === 0) {
                 html += "<tr>";
                 html += "<td>Get all ships</td>";
                 html += "<td>Relax</td>";
-                html += "<td><button type='button' class='btn btn-info'>Pay $500 to get</button></td>";
+                html += "<td><button type='button' class='btn btn-info' onclick=\"pay('All ships', '$500', '/images/bullet_0.png'); \">Pay $500 to get</button></td>";
                 html += "</tr>";
             }
 
@@ -102,28 +106,72 @@
             html += "<tr>";
             html += "<td>Reset selected Ship</td>";
             html += "<td>No PowerUP</td>";
-            html += "<td><button type='button' class='btn btn-primary' onclick=\"galaxy.hero.selectHero(6);closePaymentModal();\">Use Now</button></td>";
+            html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship', 0);closePaymentModal();\">Use Now</button></td>";
             html += "</tr>";
             html += "</ul>";
+
+
             } else {
-                for (i = 7; i < 12; i++) {
-                    html += "<tr>";
-                    html += "<td><img src='/images/fg_"+ (i-6) +".png' width='30' class='zoom'/></td>";
-                    html += "<td> <ul><li>None</li></ul></td>";
-                    if (data.includes(i+1)) {
-                        html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('background',";
-                        html+= "" + (i +1) + "); closePaymentModal();\">Use Now</button></td>";
-                    } else {
-                        html += "<td><button type='button' class='btn btn-info'>Pay $1" + i + "0 to get</button></td>";
-                    }
-                    html += "</tr>";
+                html += "<tr>";
+                html += "<td><img src='/images/fg_1.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>None</li></ul></td>";
+                if (data.includes(8)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('background','8'); closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'  onclick=\"pay('Background 1', '$10', '/images/fg_1.png'); \">Pay $10 to get</button></td>";
                 }
+                html += "</tr>";
+
+                //
+                html += "<tr>";
+                html += "<td><img src='/images/fg_2.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>None</li></ul></td>";
+                if (data.includes(9)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('background','9'); closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'  onclick=\"pay('Background 2', '$10', '/images/fg_2.png'); \">Pay $10 to get</button></td>";
+                }
+                html += "</tr>";
+
+                //
+                html += "<tr>";
+                html += "<td><img src='/images/fg_3.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>None</li></ul></td>";
+                if (data.includes(10)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('background','10'); closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'  onclick=\"pay('Background 3', '$10', '/images/fg_3.png'); \">Pay $10 to get</button></td>";
+                }
+                html += "</tr>";
+
+                //
+                html += "<tr>";
+                html += "<td><img src='/images/fg_4.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>None</li></ul></td>";
+                if (data.includes(11)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('background','11'); closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'  onclick=\"pay('Background 4', '$10', '/images/fg_4.png'); \">Pay $10 to get</button></td>";
+                }
+                html += "</tr>";
+
+                //
+                html += "<tr>";
+                html += "<td><img src='/images/fg_5.png' width='30' class='zoom'/></td>";
+                html += "<td> <ul><li>None</li></ul></td>";
+                if (data.includes(12)) {
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('background','12'); closePaymentModal();\">Use Now</button></td>";
+                } else {
+                    html += "<td><button type='button' class='btn btn-info'  onclick=\"pay('Background 5', '$10', '/images/fg_5.png'); \">Pay $10 to get</button></td>";
+                }
+                html += "</tr>";
+
 
                 if (data.length === 0) {
                     html += "<tr>";
                     html += "<td>Get all background</td>";
                     html += "<td>Relax</td>";
-                    html += "<td><button type='button' class='btn btn-info'>Pay $500 to get</button></td>";
+                    html += "<td><button type='button' class='btn btn-info' onclick=\"pay('All backgrounds', '$50', '/images/fg_4.png' \">);>Pay $50 to get</button></td>";
                     html += "</tr>";
                 }
 
