@@ -28,6 +28,7 @@ galaxy.init = function() {
 	galaxy.wrap.style.width = galaxy.wrapInner.style.width = galaxy.cw + 'px';
 	galaxy.wrap.style.height = galaxy.wrapInner.style.height = galaxy.ch + 'px';
 	galaxy.wrap.style.marginLeft = ( -galaxy.cw / 2 ) - 10 + 'px';
+    galaxy.wrap.style.marginBottom = '100px';
 	//galaxy.wrap.style.marginTop = ( -galaxy.ch / 2 ) - 10 + 'px';
 	galaxy.ww = Math.floor( galaxy.cw * 2 );
 	galaxy.wh = Math.floor( galaxy.ch * 2 );

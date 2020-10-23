@@ -23,3 +23,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', 'LoginController@logout');
     Route::post('/user', 'DashboardController@create');
 });
+
+Route::get("/privacy", function (){
+    return view("privacy");
+});

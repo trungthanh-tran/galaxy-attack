@@ -206,7 +206,7 @@
 @endpush
 
 @section('content')
-    <div id="wrap">
+    <div id="wrap" class="wrapper flex-grow-1">
         <div id="wrap-inner">
             <canvas id="cbg1"></canvas>
             <canvas id="cbg2"></canvas>
@@ -297,8 +297,6 @@
             </div>
         </div>
     </div>
-
-
 @endsection
 
 @push("scripts")

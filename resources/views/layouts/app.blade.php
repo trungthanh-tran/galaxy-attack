@@ -54,14 +54,15 @@
         <input type="hidden" id="userId" name="userId" value="{{ Auth::user()->id }}">
         <input type="hidden" id="userName" name="userName" value="{{ Auth::user()->name }}">
     @endauth
-        <div class="container">
-            <div class="row">
+
                 <div class="col-md-12">
+                    <section>
                     @yield('content')
+                    </section>
                 </div>
-            </div>
-        </div>
         @stack('scripts')
-    @extends('footer.app')
+    <div class="col-md-12">
+        @extends('layouts.footer')
+    </div>
     </body>
 </html>
