@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\GameScore;
 use App\Http\Resources\HighScore;
 use App\Http\Resources\HighScoreCollection;
+use App\UserConfig;
 use App\UserItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -119,10 +120,37 @@ class GameController extends Controller
         $type = $request->get('type');
         if (is_null($uid)) return response()->json(["code"=>500, "message" =>"uid is invalid"], 200);
         if (is_null($type)) return response()->json(["code"=>500, "message" =>"types is invalid"], 200);
-        $ships = DB::table('useritem')->select (["useritem.item_id as id"]) ->
-            join ("items", "items.id", "=", "useritem.item_id")
+        $ships = DB::table('items')->select ("items.id as id") ->
+            leftJoin ("useritem", "items.id", "=", "useritem.item_id")
             -> where([["useritem.user_id", "=", $uid],["items.item_note", "=", $type]])->get();
         return response()->json(["code"=>200, "message" =>"OK", "items" => $ships], 200);
     }
+
+    /**
+     *
+     * Set usser config
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setConfig(Request $request) {
+        $uid = $request->get('user_id');
+        $type = $request->get('type');
+        $value = $request->get('value');
+        if (is_null($uid)) return response()->json(["code"=>500, "message" =>"uid is invalid"], 200);
+        if (is_null($type)) return response()->json(["code"=>500, "message" =>"types is invalid"], 200);
+        switch ($type) {
+            case "ship":
+                UserConfig::updateOrCreate(['user_id' => $uid], ['ship_id' => $value]);
+                break;
+            case "background":
+                UserConfig::updateOrCreate(['user_id' => $uid], ['background_id' => $value]);
+                break;
+            default:
+                return response()->json(["code"=>500, "message" =>"type is invalid"], 200);
+        }
+        return response()->json(["code"=>200, "message" =>"OK"], 200);
+    }
+
 
 }

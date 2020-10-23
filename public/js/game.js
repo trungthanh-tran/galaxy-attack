@@ -94,7 +94,6 @@ galaxy.init = function() {
 		left: 0,
 		top: 0
 	};
-
 	galaxy.levelCount = galaxy.definitions.levels.length;
 	galaxy.states = {};
 	galaxy.state = '';
@@ -186,7 +185,7 @@ galaxy.reset = function() {
 	galaxy.score = 0;
 
 	galaxy.hero = new galaxy.Hero();
-    galaxy.hero.selectHero(galaxy.storage['ship']);
+    galaxy.hero.selectHero(parseInt(document.getElementById("selectedShip").value));
 
 	galaxy.levelPops.push( new galaxy.LevelPop( {
 		level: 1
@@ -216,7 +215,7 @@ galaxy.renderBackground1 = function() {
 	while( i-- ) {
 		galaxy.util.fillCircle( galaxy.ctxbg1, galaxy.util.rand( 0, galaxy.cbg1.width ), galaxy.util.rand( 0, galaxy.cbg1.height ), galaxy.util.rand( 0.1, 0.8 ), 'hsla(0, 0%, 100%, ' + galaxy.util.rand( 0.05, 0.5 ) + ')' );
 	}*/
-    galaxy.cbg1.style.background = "url('/images/fg.png')";
+    galaxy.cbg1.style.background = "url('/images/fg_"+ (parseInt(document.getElementById("selectedBg").value) - 7 )+".png')";
 }
 
 galaxy.renderBackground2 = function() {

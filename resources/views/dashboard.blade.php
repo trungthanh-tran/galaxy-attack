@@ -31,15 +31,16 @@
             return html;
         }
 
-        function renderShipsTable(data) {
-            var html = "<table class=\"table\"><thead><tr><th>Ship</th><th>Power Up</th><th>Action</th></tr></thead>";
+        function renderShipsTable(criteria, data) {
+            var html = "<table class=\"table\"><thead><tr><th>Item</th><th>Power Up</th><th>Action</th></tr></thead>";
             html += "<tbody>";
+            if (criteria == "ship") {
             for (i = 0; i < 5; i++) {
                 html += "<tr>";
-                html += "<td><img src='/images/ship_" + i + ".png' width='30' class='zoom'/></td>";
+                html += "<td><img src='/images/ship_"+ i +".png' width='30' class='zoom'/></td>";
                 html += "<td> <ul><li>+1 Extra life</li><li>+" + i + "% extra damage</li></ul></td>";
                 if (data.includes(i + 1)) {
-                    html += "<td><button type='button' class='btn btn-primary' onclick=\"galaxy.hero.selectHero(";
+                    html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('ship',";
                     html+= "" + (i + 1) + "); closePaymentModal();\">Use Now</button></td>";
                 } else {
                     html += "<td><button type='button' class='btn btn-info'>Pay $1" + i + "0 to get</button></td>";
@@ -61,9 +62,37 @@
             html += "<td>No PowerUP</td>";
             html += "<td><button type='button' class='btn btn-primary' onclick=\"galaxy.hero.selectHero(6);closePaymentModal();\">Use Now</button></td>";
             html += "</tr>";
-
-
             html += "</ul>";
+            } else {
+                for (i = 7; i < 12; i++) {
+                    html += "<tr>";
+                    html += "<td><img src='/images/fg_"+ (i-6) +".png' width='30' class='zoom'/></td>";
+                    html += "<td> <ul><li>None</li></ul></td>";
+                    if (data.includes(i+1)) {
+                        html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('background',";
+                        html+= "" + (i +1) + "); closePaymentModal();\">Use Now</button></td>";
+                    } else {
+                        html += "<td><button type='button' class='btn btn-info'>Pay $1" + i + "0 to get</button></td>";
+                    }
+                    html += "</tr>";
+                }
+
+                if (data.length === 0) {
+                    html += "<tr>";
+                    html += "<td>Get all background</td>";
+                    html += "<td>Relax</td>";
+                    html += "<td><button type='button' class='btn btn-info'>Pay $500 to get</button></td>";
+                    html += "</tr>";
+                }
+
+                // Default ship
+                html += "<tr>";
+                html += "<td>Reset BG Ship</td>";
+                html += "<td>No PowerUP</td>";
+                html += "<td><button type='button' class='btn btn-primary' onclick=\"saveUserConfig('background',7);closePaymentModal();\">Use Now</button></td>";
+                html += "</tr>";
+                html += "</ul>";
+            }
             html += "</tbody></table>";
             return html;
         }
@@ -128,14 +157,46 @@
                     items = JSON.parse(this.responseText);
                     flen = items.items.length;
                     var availableShips = [];
+                    console.log(this.responseText);
                     for (var i = 0; i < flen; i++) {
                         availableShips.push(items.items[i].id);
                     }
-                    html = renderShipsTable(availableShips);
+                    html = renderShipsTable(criteria, availableShips);
                     document.getElementById("display-item").innerHTML = html;
                 }
             }
             data_send = "type=" + criteria + "&user_id=" + document.getElementById("userId").value;
+            xhr.send(data_send);
+        }
+
+        function saveUserConfig(type, value) {
+            var request = new XMLHttpRequest();
+
+            // Define what happens in case of error
+            request.addEventListener('error', function (event) {
+                alert('Save config error');
+            });
+            // Set up our request
+
+            // Add the required HTTP header for form data POST requests
+            // Finally, send our data.
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", '/api/set-config', true);
+
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function() { // Call a function when the state changes.
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    if (type === 'ship') {
+                        document.getElementById("selectedShip").value = value;
+                        galaxy.hero.selectHero(value);
+                    } else {
+                        galaxy.cbg1.style.background = "url('/images/fg_" + (value -7) + ".png')";
+                    }
+                }
+            }
+            data_send = "type=" + type + "&user_id=" + document.getElementById("userId").value + "&value=" + value;
             xhr.send(data_send);
         }
 
@@ -156,6 +217,10 @@
         </div>
     </div>
 
+    @auth
+        <input type="hidden" id="selectedShip" name="selectedShip" value="{{ $user_config->ship_id }}">
+        <input type="hidden" id="selectedBg" name="selectedBg" value="{{ $user_config->background_id }}">
+    @endauth
     <div class="modal" tabindex="-1" role="dialog" id="highscore" name="highscore">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

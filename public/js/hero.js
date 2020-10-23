@@ -29,7 +29,7 @@ galaxy.Hero = function() {
 		},
 		fireFlag: 0
 	};
-    this.selectedHero = 6;
+    this.selectedHero = document.getElementById("selectedShip").value;
 	this.heroes = new Array();
     for (var i = 0; i < 5; i++) {
         this.heroes[i] = new Image();

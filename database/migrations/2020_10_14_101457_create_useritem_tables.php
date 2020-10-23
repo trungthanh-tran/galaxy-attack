@@ -18,8 +18,9 @@ class CreateUseritemTables extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('item_id');
             $table->unsignedInteger('amount');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unique(['user_id', 'item_id']);
             $table->timestamps();
         });
     }

@@ -62,5 +62,6 @@
             </div>
         </div>
         @stack('scripts')
+    @extends('footer.app')
     </body>
 </html>

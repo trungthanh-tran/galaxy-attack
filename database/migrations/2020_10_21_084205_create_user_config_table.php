@@ -13,8 +13,13 @@ class CreateUserConfigTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_config', function (Blueprint $table) {
+        Schema::create('user_configs', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('user_id');
+            $table->smallInteger('ship_id')->default(6);
+            $table->smallInteger('background_id')->default(6);
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->index("user_id");
             $table->timestamps();
         });
     }
